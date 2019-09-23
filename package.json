@@ -1,0 +1,33 @@
+{
+  "name": "css-watchdog",
+  "version": "1.0.0",
+  "description": "The absolute CSS testing tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "karmatic",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loukas-kotas/css-watchdog.git"
+  },
+  "author": "“Loukas <“loukas.kotas@gmail.com”> (“https://www.github.com/loukas-kotas/”)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loukas-kotas/css-watchdog/issues"
+  },
+  "homepage": "https://github.com/loukas-kotas/css-watchdog#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-loader": "^8.0.6",
+    "karmatic": "^1.4.0",
+    "puppeteer": "^1.20.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
