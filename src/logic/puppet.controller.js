@@ -50,48 +50,72 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
                 result[field] = window.getComputedStyle(element).getPropertyValue(field);
             });
 
-            console.log(result);
             return result;
         });
 
     }, fields, tags);
   }
   
+  /**
+   * get every attribute of every tag in the page
+   */
   puppetController.getAll = async function(page) {
       return await page.evaluate(() => {
+
+        function filterNumbers (value) {
+            if ( !Number(value) ) return true; else return false;
+        }
+
         const elements = document.body.getElementsByTagName('*');
+        let properties = Array.from(window.getComputedStyle(elements[0]));
+        properties = properties.filter(filterNumbers);
+        
         return [...elements].map(element => {
             element.focus();
-            return window.getComputedStyle(element);
+            const result = {
+                '_id': element.id,
+                '_tag': element.tagName,
+            };
+            properties.forEach(property => {
+                result[property] = window.getComputedStyle(element).getPropertyValue(property);
+            });
+            return result;
         });
       });
   }
 
-  puppetController.compareArrays = function(array1, array2) {
+
+  puppetController.compareArrays = function(array1, array2, keys) {
     const result = [];
-    let keys = [];
-    if (Object.keys(array1).length !== Object.keys(array2).length) { 
-        // return `Computed Styles Length are different  array1-length:${Object.keys(array1).length} array2-length: ${Object.keys(array2).length}`; 
-        keys = (Object.keys(array1).length < Object.keys(array2).length)? Object.keys(array1): Object.keys(array2);
-    } else {
-        keys = Object.keys(array1);
-    }
-    keys.forEach(key => {
-        console.log(`key: ${key}`);
-        if ( array1[key] !== array2[key] ) {
-            const obj = { 'field': key, 'source': array1[key], 'target': array2[key] }
-            result.push(obj);
-        }
-    });
-    // array1 = Object(array1);
-    // array2 = Object(array2);
-    // console.log(array1.color);
-    // console.log('array1');
-    // for(key in array1) {
-    //     console.log(`key: ${key}`);
-    //     const obj = { 'field': key, 'source': array1[key], 'target': array2[key] }
-    //     result.push(obj);
+    // let keys = [];
+
+    // if (Object.keys(array1[0]).length !== Object.keys(array2[0]).length) { 
+    //     [keys, len] = (Object.keys(array1[0]).length < Object.keys(array2[0]).length)? [Object.keys(array1[0]), array1.length]: [Object.keys(array2[0]), array2.length];
+    //     keys = Object.keys(array1[0]);
+    // } else {
+    //     [keys, len] = [Object.keys(array1[0]), array1[0].length];
     // }
+
+
+    array1.forEach(element1 => {
+        // Check only elements that have ID
+        if (element1._id && element1._id.length > 0) {
+            const attr2Index = array2.findIndex(item2 => item2._id === element1._id);
+
+            // Compare fields of elements with same ID
+            if (attr2Index  > -1) {
+                keys.forEach(key => {
+                    console.log(`element1[${key}]: ${element1[key]} || element2[${key}]: ${array2[attr2Index][key]} \n`);
+                    if ( element1[key] !== array2[attr2Index][key] ) {
+                        const obj = { '_id': element1._id, 'field': key, 'source': element1[key], 'target': array2[attr2Index][key] };
+                        result.push( obj );
+                    }
+                });            
+            }
+        } 
+
+    });
+    
     return result;
   }
 
