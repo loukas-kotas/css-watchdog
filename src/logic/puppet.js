@@ -35,11 +35,8 @@ puppet.compareTwoDomains = async function(source, target) {
   // const page2 = await browser.newPage();
   await page.goto(target);
   const computedStylesDomain2 = await puppetController.getAll(page);
-  // console.log('computedStylesDomain1');
-  // console.log(computedStylesDomain1);
-  console.log(computedStylesDomain2);
-  console.log('computedStylesDomain2');
-  return puppetController.compareArrays(computedStylesDomain1, computedStylesDomain2);
+  const keys = await puppetController.getKeys(page);
+  return puppetController.compareArrays(computedStylesDomain1, computedStylesDomain2, keys);
 }
 
 
