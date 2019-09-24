@@ -6,9 +6,6 @@ const router = require('express').Router();
 router.get('', async (req, res, next) => {
     const source = req.body.source;
     const fields = req.body.fields;
-    console.log(`source ${source}`);
-    console.log('fields');
-    console.log(fields);
     const promise = puppet.getFields(source, fields);
     promise
     .catch((err) => {
