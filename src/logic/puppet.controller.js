@@ -36,14 +36,9 @@ puppetController.getFonts = async function(page) {
   }
   
 puppetController.getAttributesOfTags = async function(page, fields, tags) {
-    console.log(fields);
-    console.log(tags);
     return await page.evaluate((fields, tags) => {
         let elements = [];
         tags.forEach(tag => { elements = elements.concat(Array.from(document.body.getElementsByTagName(tag))); });
-        // elements =  document.body.getElementsByTagName('p');
-        console.log('tags');
-        console.log(tags);
         return [...elements].map(element => {
             element.focus();
             let result = {
