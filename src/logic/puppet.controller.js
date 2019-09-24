@@ -87,15 +87,6 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
 
   puppetController.compareArrays = function(array1, array2, keys) {
     const result = [];
-    // let keys = [];
-
-    // if (Object.keys(array1[0]).length !== Object.keys(array2[0]).length) { 
-    //     [keys, len] = (Object.keys(array1[0]).length < Object.keys(array2[0]).length)? [Object.keys(array1[0]), array1.length]: [Object.keys(array2[0]), array2.length];
-    //     keys = Object.keys(array1[0]);
-    // } else {
-    //     [keys, len] = [Object.keys(array1[0]), array1[0].length];
-    // }
-
 
     array1.forEach(element1 => {
         // Check only elements that have ID
@@ -118,6 +109,18 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
     
     return result;
   }
+
+
+    puppetController.getKeys = async function(page) {
+        return await page.evaluate(() => {
+            let keys = [];
+            const elements = document.getElementsByTagName('*');
+            keys = window.getComputedStyle(document.getElementsByTagName('*')[0]);
+            keys = Array.from(keys);
+            return keys;
+        });
+    }
+
 
 
   module.exports = puppetController;
