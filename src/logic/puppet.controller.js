@@ -121,6 +121,13 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
         });
     }
 
+    puppetController.getScreenshot = async function(page) {
+        let date = new Date();
+        date = date.toString();
+        const url = page._target.url();
+        return await page.screenshot({path: `./assets/${date}.png`});
+    }
+
 
 
   module.exports = puppetController;

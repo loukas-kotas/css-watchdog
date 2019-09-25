@@ -61,6 +61,13 @@ puppet.saveFonts = function (fonts) {
   });
 }
 
+puppet.getScreenshot = async function(source) {
+  const browser = await puppeteer.launch();
+  const page    = await browser.newPage();
+  await page.goto(source);
+  return puppetController.getScreenshot(page);
+}
+
 
 
 module.exports = puppet;
