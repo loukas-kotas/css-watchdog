@@ -129,5 +129,21 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
     }
 
 
+    puppetController.getScreenshotOfElement = async function(page, elementId) {
+        let date = new Date();
+        date = date.toString();        
+        [elementX, elementY, elementWidth, elementHeight] = await puppetController.getElementPosition(page, elementId);
+        return await page.screenshot({path: `./assets/${date}.png`, fullPage: false, omitBackground: false , clip: {x: elementX, y: elementY, width: elementWidth, height: elementHeight}});
+    }
+
+    puppetController.getElementPosition = async function(page, elementID) {
+        return await page.evaluate((elementID) => {
+            const el = document.getElementById(elementID);
+            const roundedRect = el.getBoundingClientRect();
+            const [x, y, width, height] = [ roundedRect.left + window.scrollX, roundedRect.top + window.scrollY, roundedRect.width, roundedRect.height];
+            const result = [x, y, width, height];
+            return result;
+        }, elementID);
+    }
 
   module.exports = puppetController;
