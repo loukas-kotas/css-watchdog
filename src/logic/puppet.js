@@ -47,17 +47,14 @@ puppet.closeBrowser = async function() {
 
 
 puppet.saveFonts = function (fonts) {
-  console.log('saveFonts');
   const result = { fonts: [fonts]};
   let fontsObj = JSON.stringify(result);
   fs.writeFile("fonts.json", fontsObj, 'utf8', (err) => {
     if (err) { console.log('Error occured while writing JSON Data!'); return err; }
-    console.log('JSON file saved successfully!');
   })
 
   fs.readFile("fonts.json", (err, data) => {
     if (err) { console.error('Error while reading the ' + "fonts.json"); return err; }
-    console.log(JSON.parse(data));
   });
 }
 

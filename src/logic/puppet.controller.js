@@ -15,9 +15,6 @@ puppetController.getFonts = async function(page) {
       return await page.evaluate((fields) => {
           const elements = document.body.getElementsByTagName("*");
           
-          console.error('get Attributes');
-          console.log(elements);
-          console.log(fields);
           return [...elements].map(element => {
               
               element.focus();
@@ -96,7 +93,6 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
             // Compare fields of elements with same ID
             if (attr2Index  > -1) {
                 keys.forEach(key => {
-                    console.log(`element1[${key}]: ${element1[key]} || element2[${key}]: ${array2[attr2Index][key]} \n`);
                     if ( element1[key] !== array2[attr2Index][key] ) {
                         const obj = { '_id': element1._id, 'field': key, 'source': element1[key], 'target': array2[attr2Index][key] };
                         result.push( obj );
