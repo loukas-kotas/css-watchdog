@@ -73,6 +73,14 @@ puppet.getScreenshotOfElement = async function(source, elementId) {
   return puppetController.getScreenshotOfElement(page, elementId);
 }
 
+puppet.login = async function(source, username, password) {
+  const browser = await puppeteer.launch();
+  const page    = await browser.newPage();
+  await page.goto(source);
+  return puppetController.login(page, username, password);
+
+}
+
 
 
 module.exports = puppet;
