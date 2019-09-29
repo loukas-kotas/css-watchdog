@@ -1,3 +1,5 @@
+const puppetService = require('./puppet.service');
+
 function puppetController() {}
 
 puppetController.getFonts = async function(page) {
@@ -152,6 +154,10 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
             const result = {message: 'Your automatic login succeeded!', current_location: location, cookies: cookies};
             return result;
         }, cookies)
+    }
+
+    puppetController.compareScreenshots = async function(sourceImageLocation, targetImageLocation) {
+        return puppetService.compareScreenshots(sourceImageLocation, targetImageLocation);
     }
 
   module.exports = puppetController;
