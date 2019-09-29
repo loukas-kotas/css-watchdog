@@ -88,6 +88,12 @@ puppet.redirect = async function(source) {
   return page.url();
 }
 
+puppet.compareScreenshots = async function() {
+  const sourceImageLocation = './assets/image_1.png';
+  const targetImageLocation = './assets/image_2.png';
+  return puppetController.compareScreenshots(sourceImageLocation, targetImageLocation);
+}
+
 
 
 module.exports = puppet;
