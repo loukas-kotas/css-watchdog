@@ -5,7 +5,10 @@ router.post('', async (req, res, next) => {
     const source = req.body.source;
     const username = req.body.username;
     const password = req.body.password;
-    const promise = puppet.login(source, username, password);
+    const usernameId = req.body.usernameId;
+    const passwordId = req.body.passwordId;
+    const buttonLoginId = req.body.buttonLoginId;
+    const promise = puppet.login(source, username, password, usernameId, passwordId, buttonLoginId);
     promise
     .catch((err) => {
         res.send(err);
