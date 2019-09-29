@@ -1,5 +1,6 @@
-const puppet    = require('./../../logic/puppet');
+const puppet = require('./../../logic/puppet');
 const router = require('express').Router();
+const fs     = require('fs');
 
 router.post('', async (req, res, next) => {
     const source = req.body.source;
@@ -14,8 +15,15 @@ router.post('', async (req, res, next) => {
         res.send(err);
     })
     .then((data) => {
+        let now = new Date();
+        now = now.toString();
+        const cookies= data.cookies;
+
+        fs.writeFile(`./assets/sessions/${now}.json`, JSON.stringify(cookies),(err) => {
+            if (err) { throw(err); }
+        });
+
         res.json({ '_data': data})
-        // puppet.closeBrowser();
     });
     
 });
