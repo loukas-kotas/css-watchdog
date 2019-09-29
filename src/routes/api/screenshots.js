@@ -40,5 +40,24 @@ router.get('/element', (req, res, next) => {
     });
 })
 
+router.get('/compare', (req, res, next) => {
+    const promise = puppet.compareScreenshots();
+    promise
+    .catch((err) => {
+        const error = Error(err);
+        const errResponse = {
+            'message': error.message,
+            'name': error.name,
+            'stack': error.stack
+        };
+        res.json(errResponse);
+    })
+    .then((data) => {
+        let diff_message = '';
+        (data > 0)? diff_message = 'Pages differ!' : diff_message = 'Pages are the same!';  
+        res.json({'_data': {'message': 'Screenshots compared successfully!', 'diff_message': diff_message, 'diff_data': data }});
+    });
+});
+
 
 module.exports = router;
