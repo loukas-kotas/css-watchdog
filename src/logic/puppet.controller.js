@@ -142,10 +142,10 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
         }, elementID);
     }
 
-    puppetController.login = async function(page, username, password) {
-        await page.type('#username', username);
-        await page.type('#password', password);
-        await page.click('#login-button');
+    puppetController.login = async function(page, username, password, usernameId, passwordId, buttonLoginId) {
+        await page.type(usernameId, username);
+        await page.type(passwordId, password);
+        await page.click(buttonLoginId);
         await page.waitForNavigation({ waitUntil: 'networkidle0' }); // what is networkidle0?
         return await page.evaluate(() => {
             const result = {message: 'Your automatic login succeeded!', current_location: location.href};
