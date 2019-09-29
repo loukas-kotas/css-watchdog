@@ -18,7 +18,19 @@ router.post('', async (req, res, next) => {
         // puppet.closeBrowser();
     });
     
-})
+});
+
+router.get('/redirect', async (req, res, next) => {
+    const source = req.body.source;
+    const promise = puppet.redirect(source);
+    promise
+    .catch((err) => {
+        res.send(err);
+    })
+    .then((data) => {
+        res.json({'_data': {'current_url': data}});
+    });
+});
 
 
 

@@ -81,6 +81,13 @@ puppet.login = async function(source, username, password, usernameId, passwordId
 
 }
 
+puppet.redirect = async function(source) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(source);
+  return page.url();
+}
+
 
 
 module.exports = puppet;
