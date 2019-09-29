@@ -147,10 +147,11 @@ puppetController.getAttributesOfTags = async function(page, fields, tags) {
         await page.type(passwordId, password);
         await page.click(buttonLoginId);
         await page.waitForNavigation({ waitUntil: 'networkidle0' }); // what is networkidle0?
-        return await page.evaluate(() => {
-            const result = {message: 'Your automatic login succeeded!', current_location: location.href};
+        const cookies = await page.cookies();
+        return await page.evaluate((cookies) => {
+            const result = {message: 'Your automatic login succeeded!', current_location: location, cookies: cookies};
             return result;
-        })
+        }, cookies)
     }
 
   module.exports = puppetController;
