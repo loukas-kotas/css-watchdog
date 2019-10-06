@@ -42,8 +42,10 @@ puppetService.compareScreenshots = function(sourceImageLocation, targetImageLoca
           // The files should look the same.
           fs.writeFileSync('./assets/diff/diff.png', PNG.sync.write(diff));
 
-          console.log(`number of different pixels should be 0  --> number: ${numDiffPixels} `)
-          resolve(numDiffPixels);
+          console.log(`number of different pixels should be 0  --> number: ${numDiffPixels} `);
+
+          const result = {threshold: 0.1, different_pixels: numDiffPixels}
+          resolve(result);
         }
       });
 }

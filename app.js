@@ -7,4 +7,4 @@ app.use(bodyParser.json())
 app.use(require('./src/routes'));
 
 const port = 3000;
-app.listen(port, () => { console.log(`I am running at ${port}`)});
+app.listen(port, () => { console.log(`I am running at ${port}!`)});
