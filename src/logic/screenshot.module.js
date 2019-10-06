@@ -2,7 +2,7 @@ const puppeteer    = require('puppeteer');
 const fs           = require('fs');
 PNG                = require('pngjs').PNG;
 const pixelmatch   = require('pixelmatch');
-const facade       = require('./facade');
+process.nextTick(()=>facade=require("./facade")); //Circular reference!
 
 const exports_module = function() {
 
@@ -22,23 +22,8 @@ const exports_module = function() {
         await page.goto(source);
         let date = new Date();
         date = date.toString();
-        console.log('page!!!');
-        console.log(facade);
-
-        // facade().get_element_position(page, elementId)
-        // .catch(err => {console.log('i am an error!'); console.log(err); throw(err)})
-        // .then(data => { 
-        //     console.log('data');
-        //     console.log(data);
-        //     const [elementX, elementY, elementWidth, elementHeight] = data; 
-        // })
+        [elementX, elementY, elementWidth, elementHeight] = await facade().get_element_position(page, elementId);
         return await page.screenshot({path: `./assets/${date}.png`, fullPage: false, omitBackground: false , clip: {x: elementX, y: elementY, width: elementWidth, height: elementHeight}});
-        // try {
-        //     [elementX, elementY, elementWidth, elementHeight] = await facade().get_element_position(page, elementId);
-        // } catch(err) {
-        //     console.log(err);
-        //     throw(err); // TypeError: failed to fetch
-        // }
     }
 
     async function compare_two_images(sourceImagePath, targetImagePath) {
