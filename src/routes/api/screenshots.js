@@ -103,7 +103,7 @@ router.get('/element/facade', (req, res, next) => {
 })
 
 router.get('/compare/facade', (req, res, next) => {
-    const promise = facade().compare_images();
+    const promise = facade().compare_images('./assets/image_1.png', './assets/Sat Oct 05 2019 23:42:10 GMT+0300 (EEST).png');
     promise
     .catch((err) => {
         const error = Error(err);
