@@ -63,7 +63,7 @@ const export_module = (function() {
         return result;
     }
 
-    // logic
+    // login
     function login(source, username, password, usernameId, passwordId, buttonLoginId) {
 
         try {
