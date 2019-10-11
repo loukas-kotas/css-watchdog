@@ -3,6 +3,7 @@ const fontsModule = require('./fonts.module');
 const fieldsModule = require('./fields.module');
 const screenshotModule = require('./screenshot.module');
 const commonModule = require('./common.module');
+const loginModule = require('./login.module');
 
 const export_module = (function() {
 
@@ -62,6 +63,18 @@ const export_module = (function() {
         return result;
     }
 
+    // logic
+    function login(source, username, password, usernameId, passwordId, buttonLoginId) {
+
+        try {
+            const result = loginModule().login(source, username, password, usernameId, passwordId, buttonLoginId);
+            return result;
+        } catch (err) {
+            console.log('oops error occured!');            
+        }
+    }
+
+
     function foo() {
         return 'my foo function';
     }
@@ -81,6 +94,7 @@ const export_module = (function() {
         get_element_position: get_element_position,
         foo: foo,
 
+        login: login,
     }
 
 });
