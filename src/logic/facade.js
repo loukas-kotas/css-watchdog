@@ -127,11 +127,6 @@ const export_module = (function() {
     }
 
 
-    function foo() {
-        return 'my foo function';
-    }
-
-
     // FACADE
     return {
         puppet_newpage: puppet_newpage,
