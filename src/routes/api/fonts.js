@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const puppet = require('../../logic/puppet');
 const facade = require('../../logic/facade');
+const errorHandler = require('../../logic/error-handler.controller');
 
  router.get('', async (req, res, next) => {
     const source = req.body.source;
@@ -23,7 +24,8 @@ router.get('/facade', async (req, res, next) => {
     console.log(promise);
     promise
     .catch((err) => {
-        res.send(err);
+        const error = errorHandler().handleError(err);
+        res.send(error);        
     })
     .then((data) => {
         console.log('data');

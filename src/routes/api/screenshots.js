@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const puppet = require('../../logic/puppet');
 const facade = require('../../logic/facade');
+const errorHandler = require('../../logic/error-handler.controller');
 
 
 router.get('/domain', (req, res, next) => {
@@ -8,13 +9,8 @@ router.get('/domain', (req, res, next) => {
     const promise = puppet.getScreenshot(source);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': 'Screenshot Saved Successfully!'});
@@ -28,13 +24,8 @@ router.get('/element', (req, res, next) => {
     const promise = puppet.getScreenshotOfElement(source, elementId);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': `Screenshot of element '${elementId}' saved successfully!`})
@@ -45,13 +36,8 @@ router.get('/compare', (req, res, next) => {
     const promise = puppet.compareScreenshots();
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        };
-        res.json(errResponse);
+        const error  = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         let diff_message = '';
@@ -66,13 +52,8 @@ router.get('/domain/facade', (req, res, next) => {
     const promise = facade().screenshot_whole_page(source);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': 'Screenshot Saved Successfully!'});
@@ -89,13 +70,8 @@ router.get('/element/facade', (req, res, next) => {
     // const promise = facade().get_fonts(source);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': `Screenshot of element '${elementId}' saved successfully!`})
@@ -106,13 +82,8 @@ router.get('/compare/facade', (req, res, next) => {
     const promise = facade().compare_images('./assets/image_1.png', './assets/Sat Oct 05 2019 23:42:10 GMT+0300 (EEST).png');
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        };
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         let diff_message = '';

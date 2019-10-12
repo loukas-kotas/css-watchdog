@@ -4,63 +4,114 @@ const fieldsModule = require('./fields.module');
 const screenshotModule = require('./screenshot.module');
 const commonModule = require('./common.module');
 const loginModule = require('./login.module');
+const errorHandler = require('./error-handler.controller');
 
 const export_module = (function() {
 
 
     // puppet
     function puppet_newpage() {
-        const result = puppetModule().new_page();
-        return result;
+        try {
+            const result = puppetModule().new_page();
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     function puppet_go_to(page, source) {
-        const result = puppetModule().go_to(page, source);
-        return result;
+        try {
+            const result = puppetModule().go_to(page, source);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     function puppet_close_browser() {
-        const result = puppetModule().close_browser();
-        return result;
+        try { 
+            const result = puppetModule().close_browser();
+            return result;
+        } catch {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     // fonts
     function get_fonts(source) {
-        const result = fontsModule().get_fonts(source);
-        return result;
+        try {
+            const result = fontsModule().get_fonts(source);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     // fields
     function get_attributes(source, attributes) {
-        const result = fieldsModule().get_attributes(source, attributes);
-        return result;
+        try {
+            const result = fieldsModule().get_attributes(source, attributes);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     function get_tags(source, fields, tags) {
-        const result = fieldsModule().get_tags(source, fields, tags);
-        return result;
+        try {
+            const result = fieldsModule().get_tags(source, fields, tags);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     // screenshots
     function screenshot_whole_page(source) {
-        const result = screenshotModule().domain(source);
-        return result;
+        try {
+            const result = screenshotModule().domain(source);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     function screenshot_element(source, elementId) {
-        const result = screenshotModule().element(source, elementId);
-        return result;
+        try {
+            const result = screenshotModule().element(source, elementId);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     function compare_images(sourceImagePath, targetImagePath) {
-        const result = screenshotModule().compare(sourceImagePath, targetImagePath);
-        return result;
+        try {
+            const result = screenshotModule().compare(sourceImagePath, targetImagePath);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     // common
     function get_element_position(page, elementID) {
-        const result = commonModule().get_element_position(page, elementID);
-        return result;
+        try {
+            const result = commonModule().get_element_position(page, elementID);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
     }
 
     // login
@@ -70,13 +121,9 @@ const export_module = (function() {
             const result = loginModule().login(source, username, password, usernameId, passwordId, buttonLoginId);
             return result;
         } catch (err) {
-            console.log('oops error occured!');            
+            const error = errorHandler().handleError(err);
+            return error;
         }
-    }
-
-
-    function foo() {
-        return 'my foo function';
     }
 
 

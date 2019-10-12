@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const puppet    = require('./../../logic/puppet');
 const router = require('express').Router();
+const errorHandler = require('../../logic/error-handler.controller');
 
 router.get('', (req, res, next) => {
     const source = req.body.source;
@@ -8,13 +9,8 @@ router.get('', (req, res, next) => {
 
     puppet.compareTwoDomains(source, target)
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-        res.json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': data});
