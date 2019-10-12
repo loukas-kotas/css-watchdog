@@ -34,7 +34,7 @@ const export_module = (function() {
         try { 
             const result = puppetModule().close_browser();
             return result;
-        } catch {
+        } catch (err) {
             const error = errorHandler().handleError(err);
             return error;
         }
