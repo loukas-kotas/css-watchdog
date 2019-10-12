@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const puppet    = require('./../../logic/puppet');
 const facade    = require('./../../logic/facade');
 const router = require('express').Router();
+const errorHandler = require('../../logic/error-handler.controller');
 
 
 router.get('', async (req, res, next) => {
@@ -26,15 +27,8 @@ router.get('/tags', async (req, res, next) => {
     const promise = puppet.getFieldsOfTags(source, fields, tags);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-
-        res
-        .json(errResponse);
+        const error = errorHandler().handleError(err);
+        res.json(error);
     })
     .then((data) => {
         res.json({'_data': data});
@@ -48,7 +42,8 @@ router.get('/facade', async (req, res, next) => {
     const promise = facade().get_attributes(source, fields);
     promise
     .catch((err) => {
-        res.send(err);
+        const error = errorHandler().handleError(err);
+        res.send(error);
     })
     .then((data) => {
         res.json({ '_data': data})
@@ -64,15 +59,9 @@ router.get('/tags/facade', async (req, res, next) => {
     const promise = facade().get_tags(source, fields, tags);
     promise
     .catch((err) => {
-        const error = Error(err);
-        const errResponse = {
-            'message': error.message,
-            'name': error.name,
-            'stack': error.stack
-        }
-
+        const error = errorHandler().handleError(err);
         res
-        .json(errResponse);
+        .json(error);
     })
     .then((data) => {
         res.json({'_data': data});
