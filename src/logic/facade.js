@@ -92,8 +92,6 @@ const export_module = (function() {
         screenshot_element: screenshot_element,
         compare_images: compare_images,
         get_element_position: get_element_position,
-        foo: foo,
-
         login: login,
     }
 
