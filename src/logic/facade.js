@@ -5,6 +5,7 @@ const screenshotModule = require('./screenshot.module');
 const commonModule = require('./common.module');
 const loginModule = require('./login.module');
 const errorHandler = require('./error-handler.controller');
+const puppeteerModule = require('./puppeteer.module');
 
 const export_module = (function() {
 
@@ -126,6 +127,11 @@ const export_module = (function() {
         }
     }
 
+    // puppeteer
+    function puppeteer() {
+        return puppeteerModule().puppeteer_;
+    }
+
 
     // FACADE
     return {
@@ -140,6 +146,7 @@ const export_module = (function() {
         compare_images: compare_images,
         get_element_position: get_element_position,
         login: login,
+        puppeteer: puppeteer
     }
 
 });
