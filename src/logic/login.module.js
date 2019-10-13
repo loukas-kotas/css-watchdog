@@ -20,14 +20,6 @@ const export_module = (function() {
 
         }, cookies);
 
-        const promise = new Promise((resolve, reject) => {
-            resolve({page: page, cookies: 'lfakjfjsd'});
-        });
-
-        return promise;
-
-
-
     }
 
 
