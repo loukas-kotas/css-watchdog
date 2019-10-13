@@ -126,7 +126,8 @@ const export_module = (function() {
             return error;
         }
     }
-    
+
+    // puppeteer
     function puppeteer() {
         return puppeteerModule().puppeteer_;
     }
