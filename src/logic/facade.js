@@ -52,6 +52,16 @@ const export_module = (function() {
         }
     }
 
+    function get_attribute_of_element(source, elementId, attribute) {
+        try {
+            const result = fontsModule().get_attribute_of_element(source, elementId, attribute);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
     // fields
     function get_attributes(source, attributes) {
         try {
@@ -146,7 +156,8 @@ const export_module = (function() {
         compare_images: compare_images,
         get_element_position: get_element_position,
         login: login,
-        puppeteer: puppeteer
+        puppeteer: puppeteer,
+        get_attribute_of_element: get_attribute_of_element
     }
 
 });
