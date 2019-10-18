@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const path = require("path");
 const { 
     get_attribute_of_element,
     screenshot_whole_page
@@ -8,12 +9,13 @@ const {
 const { run_through_configuration } = require("./configuration");
 const fs = require("fs");
 
-var contents = fs.readFileSync("./package.json");
+const contents = fs.readFileSync(path.resolve(__dirname, "./package.json"));
+// const contents = require("./package.json");
 var packageJson = JSON.parse(contents);
+const help = require("./help");
 
 program
     .option('-d, --debug', 'output extra debugging')
-    .option('-a, --amend', 'output extra debugging')
 
 
 program.on('--help', function(){
@@ -35,8 +37,8 @@ program
 
 program
     .command("screenshot-page <source>")
-    .alias('n')
-    .description('see the current weather in the specified city')
+    .alias('sp')
+    .description('Screenshot the whole webpage')
     .action((source) => screenshot_whole_page(source));
 
     program
