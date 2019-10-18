@@ -10,9 +10,7 @@ const { run_through_configuration } = require("./configuration");
 const fs = require("fs");
 
 const contents = fs.readFileSync(path.resolve(__dirname, "./package.json"));
-// const contents = require("./package.json");
 var packageJson = JSON.parse(contents);
-const help = require("./help");
 
 program
     .option('-d, --debug', 'output extra debugging')
