@@ -9,7 +9,7 @@ const get_attribute_of_element = async (source, elementId, attribute) => {
     })
     .then(response => {
         const result = {attribute: attribute, value: response, element_id: elementId, source: source};
-        return result;     
+        process.exit(result);  
     })
 };
 
