@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const program = require('commander');
 const { 
     get_attribute_of_element,
