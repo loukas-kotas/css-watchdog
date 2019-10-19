@@ -83,6 +83,16 @@ const export_module = (function() {
         }
     }
 
+    function get_class(source, fields, className) {
+        try {
+            const result = fieldsModule().get_class(source, fields, className);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
     // screenshots
     function screenshot_whole_page(source, pathToSave) {
         try {
@@ -161,6 +171,7 @@ const export_module = (function() {
         get_fonts: get_fonts,
         get_attributes: get_attributes,
         get_tags: get_tags,
+        get_class: get_class,
         screenshot_whole_page: screenshot_whole_page,
         screenshot_part_page: screenshot_part_page,
         screenshot_element: screenshot_element,

@@ -51,6 +51,31 @@ let export_module = (function() {
         }, attributes, tags);    
     }
 
+    async function get_specific_attributes_by_class(source, attributes, className) {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        console.log('className');
+        console.log(className);
+        await page.goto(source);
+        return await page.evaluate((attributes, className) => {
+            let elements = [];
+            elements = elements.concat(Array.from(document.body.getElementsByClassName(className)));
+            return [...elements].map(element => {
+                element.focus();
+                let result = {
+                    'id': element.id,
+                    'tag': element.tagName,
+                }
+
+                attributes.forEach(attribute => {
+                    result[attribute] = window.getComputedStyle(element).getPropertyValue(attribute);
+                });
+
+                return result;
+            });
+        }, attributes, className);
+    }
+
     // FACADE
     return {
         get_attributes: async function(source, attributes) {
@@ -59,8 +84,11 @@ let export_module = (function() {
 
         get_tags: async function(source, attributes, tags) {
             return get_specific_attributes_from_specific_tags(source, attributes, tags);
-        }
+        },
 
+        get_class: async function(source, attributes, className) {
+            return get_specific_attributes_by_class(source, attributes, className);
+        },
 
     }
 
