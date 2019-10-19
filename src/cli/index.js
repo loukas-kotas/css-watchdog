@@ -4,7 +4,8 @@ const program = require('commander');
 const path = require("path");
 const { 
     get_attribute_of_element,
-    screenshot_whole_page
+    screenshot_whole_page,
+    screenshot_part_page
 } = require('./commands');
 const { run_through_configuration } = require("./configuration");
 const fs = require("fs");
@@ -34,10 +35,17 @@ program
     .action((source, elementId, attribute) => get_attribute_of_element( source, elementId, attribute));
 
 program
-    .command("screenshot-page <source>")
+    .command("screenshot-page <source> <pathToSave>")
     .alias('sp')
     .description('Screenshot the whole webpage')
-    .action((source) => screenshot_whole_page(source));
+    .action((source, pathToSave) => screenshot_whole_page(source, pathToSave));
+
+program
+    .command("screenshot-part-page <source> <path-to-save> <x0> <y0> <x1> <y1>")
+    .alias('sp')
+    .description('Screenshot part of the webpage')
+    .action((source, pathToSave, cx0, cy0, x0, y0) => screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0));
+
 
     program
     .command("config")
