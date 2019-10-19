@@ -30,6 +30,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "commander": "^3.0.2",
     "express": "^4.17.1"
   }
 }
