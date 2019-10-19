@@ -6,14 +6,26 @@ process.nextTick(()=>facade=require("./facade")); //Circular reference!
 
 const exports_module = (function() {
 
-    async function take_screenshot_of_website(source) {
+    async function take_screenshot_of_website(source, pathToSave) {
         const browser = await puppeteer.launch();
         const page    = await browser.newPage();
         await page.goto(source);
         let date = new Date();
         date = date.toString();
-        const url = page._target.url();
-        return await page.screenshot({path: `./assets/${date}.png`});
+        return await page.screenshot({path: `./${pathToSave}/${date}.png`});
+    }
+
+    async function take_screeenshot_of_part_of_website(source, pathToSave, cx0, cy0, x0, y0) {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(source);
+        let date = new Date();
+        date = date.toString();
+        cx0 = Number(cx0);
+        cy0 = Number(cy0);
+        x0 = Number(x0);
+        y0 = Number(y0);
+        return await page.screenshot({path: `./${pathToSave}/${date}.png`, clip: {x: cx0, y:cy0, width:x0-cx0, height:y0-cx0}});
     }
 
     async function take_screenshot_of_specific_element_of_website(source, elementId) {
@@ -70,9 +82,14 @@ const exports_module = (function() {
           });    
     } 
 
+    // TODO: Replace the following functions as in common.module.js
     return {
-        domain: async function(source) {
-            return take_screenshot_of_website(source);
+        domain: async function(source, pathToSave) {
+            return take_screenshot_of_website(source, pathToSave);
+        },
+
+        part: async function(source, pathToSave, cx0, cy0, x0, y0) {
+            return take_screeenshot_of_part_of_website(source, pathToSave, cx0, cy0, x0, y0);
         },
 
         element: async function(source, elementId) {

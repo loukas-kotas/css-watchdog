@@ -84,9 +84,19 @@ const export_module = (function() {
     }
 
     // screenshots
-    function screenshot_whole_page(source) {
+    function screenshot_whole_page(source, pathToSave) {
         try {
-            const result = screenshotModule().domain(source);
+            const result = screenshotModule().domain(source, pathToSave);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    function screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0) {
+        try {
+            const result = screenshotModule().part(source, pathToSave, cx0, cy0, x0, y0);
             return result;
         } catch (err) {
             const error = errorHandler().handleError(err);
@@ -152,6 +162,7 @@ const export_module = (function() {
         get_attributes: get_attributes,
         get_tags: get_tags,
         screenshot_whole_page: screenshot_whole_page,
+        screenshot_part_page: screenshot_part_page,
         screenshot_element: screenshot_element,
         compare_images: compare_images,
         get_element_position: get_element_position,
