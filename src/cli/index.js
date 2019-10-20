@@ -42,12 +42,12 @@ program
 
 program
     .command("screenshot-part-page <source> <path-to-save> <x0> <y0> <x1> <y1>")
-    .alias('sp')
+    .alias('spp')
     .description('Screenshot part of the webpage')
     .action((source, pathToSave, cx0, cy0, x0, y0) => screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0));
 
 
-    program
+program
     .command("config")
     .alias('n')
     .description('see the current weather in the specified city')
