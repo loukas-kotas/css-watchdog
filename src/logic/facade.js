@@ -134,6 +134,16 @@ const export_module = (function() {
         }
     }
 
+    function compare_domains(sourceImagePath, targetImagePath, pathToSave) {
+        try {
+            const result = screenshotModule().compareDomains(sourceImagePath, targetImagePath, pathToSave);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
     // common
     function get_element_position(page, elementID) {
         try {
@@ -179,7 +189,8 @@ const export_module = (function() {
         get_element_position: get_element_position,
         login: login,
         puppeteer: puppeteer,
-        get_attribute_of_element: get_attribute_of_element
+        get_attribute_of_element: get_attribute_of_element,
+        compare_domains: compare_domains
     }
 
 });

@@ -10,9 +10,11 @@ const exports_module = (function() {
         const browser = await puppeteer.launch();
         const page    = await browser.newPage();
         await page.goto(source);
-        let date = new Date();
+        let date = new Date().getTime();
         date = date.toString();
-        return await page.screenshot({path: `./${pathToSave}/${date}.png`});
+        await page.screenshot({path: `./${pathToSave}/${date}.png`});
+        const result = {title: `${date}.png`};
+        return result;
     }
 
     async function take_screeenshot_of_part_of_website(source, pathToSave, cx0, cy0, x0, y0) {
@@ -66,11 +68,11 @@ const exports_module = (function() {
                         img1.data, img2.data, diff.data, img1.width, img1.height,
                         {threshold: 0.1});
                 // The files should look the same.
-                fs.writeFileSync('./assets/diff/diff.png', PNG.sync.write(diff));
+                fs.writeFileSync('./assets/diff.png', PNG.sync.write(diff));
         
                 console.log(`number of different pixels should be 0  --> number: ${numDiffPixels} `);
         
-                const result = {threshold: 0.1, different_pixels: numDiffPixels}
+                const result = {threshold: 0.1, different_pixels: numDiffPixels, error_ratio: (numDiffPixels / (img1.height * img1.width))*100 };
                 resolve(result);
 
               } catch (err) {
@@ -81,6 +83,15 @@ const exports_module = (function() {
             }
           });    
     } 
+
+    async function compare_screenshot_of_two_domains(sourceDomain, targetDomain, pathToSave) {
+        let sourceSS = await take_screenshot_of_website(sourceDomain, pathToSave);
+        let targetSS = await take_screenshot_of_website(targetDomain, pathToSave);
+        sourceSS = `./${pathToSave}/${sourceSS.title}`;
+        targetSS = `./${pathToSave}/${targetSS.title}`;
+        
+        return compare_two_images(sourceSS, targetSS);
+    }
 
     // TODO: Replace the following functions as in common.module.js
     return {
@@ -98,6 +109,10 @@ const exports_module = (function() {
 
         compare: async function(sourceImagePath, targetImagePath) {
             return compare_two_images(sourceImagePath, targetImagePath);
+        },
+
+        compareDomains: async function(sourceDomain, targetDomain, pathToSave) {
+            return compare_screenshot_of_two_domains(sourceDomain, targetDomain, pathToSave);
         }
     }
 
