@@ -5,9 +5,9 @@ const path = require("path");
 const { 
     get_attribute_of_element,
     screenshot_whole_page,
-    screenshot_part_page
+    screenshot_part_page,
+    configuration_execution
 } = require('./commands');
-const { run_through_configuration } = require("./configuration");
 const fs = require("fs");
 
 const contents = fs.readFileSync(path.resolve(__dirname, "./package.json"));
@@ -45,6 +45,12 @@ program
     .alias('spp')
     .description('Screenshot part of the webpage')
     .action((source, pathToSave, cx0, cy0, x0, y0) => screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0));
+
+program
+    .command("configuration <configuration-path>")
+    .alias('con')
+    .description('Execute tests found in configuration file')
+    .action((configPath) => configuration_execution(configPath));
 
 
 program
