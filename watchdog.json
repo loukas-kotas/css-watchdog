@@ -1,0 +1,30 @@
+{
+    "screenshot-page": {
+        "source": "https://loukaskotas.com",
+        "pathToSave": "assets",
+        "viewports": {
+            "mobile": {
+                "width": "100",
+                "height": "200"
+            },
+            "tablet": {
+                "width": "550",
+                "height": "900"
+            }
+        }    
+    },
+    "screenshot-compare": {
+        "source": "https://loukaskotas.com",
+        "target": "https://loukaskotas.com",
+        "viewports": {
+            "mobile": {
+                "width": "100",
+                "height": "200"
+            },
+            "tablet": {
+                "width": "550",
+                "height": "900"
+            }
+        }
+    }
+}

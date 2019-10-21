@@ -1,4 +1,5 @@
 const facade = require('../logic/facade');
+const configuration = require('../configuration/index');
 const errorHandler = require('../logic/error-handler.controller');
 
 const get_attribute_of_element = async (source, elementId, attribute) => {
@@ -47,9 +48,28 @@ const screenshot_part_page = async (source, pathToSave, cx0, cy0, x0, y0) => {
     });
 }
 
+const configuration_execution = async (configPath) => {
+
+    // configuration().execute_configuration(`./${configPath}`)
+    configuration().execute_configuration(configPath)
+    .catch((err) => {
+        const error = errorHandler().handleError(err);
+        // console.info(error);
+        process.exit(-1);
+    })
+    .then(() => {
+        console.info('\n');
+        console.info(`Run tests from configuration file`);
+        console.info('\n');
+        process.exit(0);
+    });
+    
+}
+
 
 module.exports = {
     get_attribute_of_element:get_attribute_of_element,
     screenshot_whole_page: screenshot_whole_page,
-    screenshot_part_page: screenshot_part_page
+    screenshot_part_page: screenshot_part_page,
+    configuration_execution: configuration_execution
 }
