@@ -73,8 +73,6 @@ let export_module = (function() {
             browser = await puppeteer.launch();
             page = await browser.newPage();
         }
-        console.log('className');
-        console.log(className);
         await page.goto(source);
         return await page.evaluate((attributes, className) => {
             let elements = [];

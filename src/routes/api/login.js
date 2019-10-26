@@ -62,11 +62,8 @@ router.post('/facade', async (req, res, next) => {
             res.json(error);
         })
         .then((data) => {
-            console.log('/login/facade');
             let now = new Date();
             now = now.toString();
-            console.log('cookies');
-            console.log(data);
             const cookies= data.cookies;    
             fs.writeFile(`./assets/sessions/${now}.json`, JSON.stringify(cookies),(err) => {
                 if (err) { throw(err); }
@@ -75,8 +72,6 @@ router.post('/facade', async (req, res, next) => {
             res.json({ '_data': data})
         });
     } catch(err) {
-        console.log('fucked!!!!');
-        console.log(err.message);
         throw new Error('Oops! 404');
     }
     

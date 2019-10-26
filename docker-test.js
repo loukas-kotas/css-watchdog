@@ -13,7 +13,7 @@ facade().screenshot_whole_page(source)
     errorHandler(err);
 })
 .then(data => {
-    console.log(`Screenshot of ${source} has been saved!`);
+    console.info(`Screenshot of ${source} has been saved!`);
 });
 
 

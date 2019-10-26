@@ -12,9 +12,6 @@ const export_module = (function() {
         let rawdata = fs.readFileSync(configurationPath);
         let configuration = JSON.parse(rawdata);
 
-        console.log('configuration data');
-        console.log(Object.keys(configuration));
-        console.log(configuration);
         const commands = Object.keys(configuration);
     
         commands.forEach(command => {
@@ -23,8 +20,6 @@ const export_module = (function() {
             switch (command) {
                 case availCommands.screenshot_page:
                     response = screenshot_page(configuration[command]);
-                    console.log('~~~ RESPONSE ~~~');
-                    console.log(response);
                     break;
                 default:
                     break;
@@ -38,8 +33,6 @@ const export_module = (function() {
     const screenshot_page = async function(command) {
         const source = command.source;
         const pathToSave = command.pathToSave;
-        console.log('~~~~~~~');
-        console.log(command);
         for (const viewport in command.viewports ) {
             const x0 = 0;
             const y0 = 0;

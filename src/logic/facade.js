@@ -15,7 +15,6 @@ class Facade {
     }
 
     beforeAll() {
-        console.log('i am here');
         return this.beforeAllFun();
     }
 

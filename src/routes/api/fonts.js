@@ -20,16 +20,12 @@ const errorHandler = require('../../logic/error-handler.controller');
 router.get('/facade', async (req, res, next) => {
     const source = req.body.source;
     const promise = facade().get_fonts(source);
-    console.log('promise');
-    console.log(promise);
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);
         res.send(error);        
     })
     .then((data) => {
-        console.log('data');
-        console.log(data);
         if(!data) {
             res.json({'_data': 'undefined data'})
         } else {

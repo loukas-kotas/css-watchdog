@@ -12,9 +12,6 @@ const exports_module = (function() {
         let browser = browserExt;
         let page = pageExt;
 
-        console.log(browser);
-        console.log(page);
-
         if ( !browser || !page ) {
             browser = await puppeteer.launch({headless: false});
             page    = await browser.newPage();      
@@ -40,12 +37,6 @@ const exports_module = (function() {
         } 
 
         await page.goto(source);
-        await page.evaluate(() => {
-            console.log()
-        });
-        page.cookies()
-        .catch(err =>  {console.log(err)})
-        .then(data => {console.log('cookies'); console.log(data)})
         let date = new Date();
         date = date.toString();
         cx0 = Number(cx0);
@@ -75,13 +66,9 @@ const exports_module = (function() {
     async function compare_two_images(sourceImagePath, targetImagePath) {
         const sourceImage = fs.readFileSync(sourceImagePath);
         const targetImage = fs.readFileSync(targetImagePath);
-        console.log('sourceIMAGE');
-        console.log(sourceImage);
         return new Promise((resolve, reject) => {
             const img1 = fs.createReadStream(sourceImagePath).pipe(new PNG()).on('parsed', doneReading);
             const img2 = fs.createReadStream(targetImagePath).pipe(new PNG()).on('parsed', doneReading);
-            console.log('img1');
-            console.log(img1);
             
             let filesRead = 0;
             function doneReading() {
@@ -91,8 +78,6 @@ const exports_module = (function() {
               if (++filesRead < 2) return;
             
               // The files should be the same size.
-              console.log(`img1.width -> ${img1.width} img2.width -> ${img2.width}`)
-              console.log(`img1.height -> ${img1.height} img2.height -> ${img2.height}`)
         
                 // Do the visual diff.
                 const diff = new PNG({width: img1.width, height: img2.height});
@@ -101,9 +86,7 @@ const exports_module = (function() {
                         {threshold: 0.1});
                 // The files should look the same.
                 fs.writeFileSync('./assets/diff.png', PNG.sync.write(diff));
-        
-                console.log(`number of different pixels should be 0  --> number: ${numDiffPixels} `);
-        
+                
                 const result = {threshold: 0.1, different_pixels: numDiffPixels, error_ratio: (numDiffPixels / (img1.height * img1.width))*100 };
                 resolve(result);
 

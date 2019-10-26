@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 
 const export_module = (function() {
     
-    console.log('login.module.ts');
     async function login(source, username, password, usernameId, passwordId, buttonLoginId) {
         
         

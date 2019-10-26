@@ -64,8 +64,6 @@ router.get('/domain/facade', (req, res, next) => {
 router.get('/element/facade', (req, res, next) => {
     const source = req.body.source;
     const elementId = req.body.elementId;
-    console.log(typeof(facade));
-    console.log(facade);
     const promise = facade().screenshot_element(source, elementId);
     // const promise = facade().get_fonts(source);
     promise

@@ -31,7 +31,6 @@ const export_module = (function() {
         let page    = pageExt;
 
         if ( !browser || !page ) {
-            console.log('I have not defined');
             browser = await puppeteer.launch();
             page = await browser.newPage();
         }
