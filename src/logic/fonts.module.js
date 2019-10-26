@@ -3,10 +3,16 @@ const puppeteer = require('puppeteer');
 
 const export_module = (function() {
 
-     async function get_all_fonts_from_website(source) {
+     async function get_all_fonts_from_website(source, browserExt, pageExt) {
 
-        const browser = await puppeteer.launch();
-        const page    = await browser.newPage();
+        let browser = browserExt;
+        let page    = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
+
         await page.goto(source);
 
         return  await page.evaluate(() => {
@@ -19,10 +25,17 @@ const export_module = (function() {
         });
     }
 
-    async function get_attribute_of_element(source, elementId, attribute) {
+    async function get_attribute_of_element(source, elementId, attribute, browserExt, pageExt) {
         
-        const browser = await puppeteer.launch();
-        const page    = await browser.newPage();
+        let browser = browserExt;
+        let page    = pageExt;
+
+        if ( !browser || !page ) {
+            console.log('I have not defined');
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
+        
         await page.goto(source);
 
         return await page.evaluate((elementId, attribute) => {

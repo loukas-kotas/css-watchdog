@@ -2,10 +2,16 @@ const puppeteer = require('puppeteer');
 
 let export_module = (function() {
 
-    async function get_specific_attributes_from_webpage(source, attributes) {
+    async function get_specific_attributes_from_webpage(source, attributes, browserExt, pageExt) {
 
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+        let browser = browserExt;
+        let page = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
+
         await page.goto(source);
 
         return await page.evaluate((attributes) => {
@@ -27,9 +33,16 @@ let export_module = (function() {
   
     }
 
-    async function get_specific_attributes_from_specific_tags(source, attributes, tags) {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+    async function get_specific_attributes_from_specific_tags(source, attributes, tags, browserExt, pageExt) {
+        
+        let browser = browserExt;
+        let page    = pageExt;
+
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
         await page.goto(source);
         return await page.evaluate((attributes, tags) => {
             let elements = [];
@@ -51,9 +64,15 @@ let export_module = (function() {
         }, attributes, tags);    
     }
 
-    async function get_specific_attributes_by_class(source, attributes, className) {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+    async function get_specific_attributes_by_class(source, attributes, className, browserExt, pageExt) {
+
+        let browser = browserExt;
+        let page    = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
         console.log('className');
         console.log(className);
         await page.goto(source);

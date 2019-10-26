@@ -2,7 +2,16 @@ const puppeteer = require('puppeteer');
 
 let export_module = (function() {
 
-    async function get_element_position(page, elementID) {
+    async function get_element_position(page, elementID, browserExt, pageExt) {
+
+        let browser = browserExt;
+        let page    = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch();
+            page = await browser.newPage();
+        }
+
         return await page.evaluate((elementID) => {
             const el = document.getElementById(elementID);
             const roundedRect = el.getBoundingClientRect();
