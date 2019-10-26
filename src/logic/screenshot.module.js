@@ -13,7 +13,7 @@ const exports_module = (function() {
         let page = pageExt;
 
         if ( !browser || !page ) {
-            browser = await puppeteer.launch({headless: false});
+            browser = await puppeteer.launch();
             page    = await browser.newPage();      
         } 
 
@@ -32,7 +32,7 @@ const exports_module = (function() {
         let page    = pageExt;
 
         if ( !browser || !page ) {
-            browser = await puppeteer.launch({headless: false});
+            browser = await puppeteer.launch();
             page    = await browser.newPage();      
         } 
 
@@ -52,7 +52,7 @@ const exports_module = (function() {
         let page = pageExt;
 
         if ( !browser || !page ) {
-            browser = await puppeteer.launch({headless: false});
+            browser = await puppeteer.launch();
             page    = await browser.newPage();      
         } 
 
