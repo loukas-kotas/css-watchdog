@@ -189,6 +189,7 @@ class Facade {
 
 }
 
+// TODO: remove export_module
 const export_module = (function() {
 
 
