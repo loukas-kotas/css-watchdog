@@ -2,25 +2,50 @@ const puppeteer    = require('puppeteer');
 const fs           = require('fs');
 PNG                = require('pngjs').PNG;
 const pixelmatch   = require('pixelmatch');
+const jsonfile = require('jsonfile')
 process.nextTick(()=>facade=require("./facade")); //Circular reference!
 
 const exports_module = (function() {
 
-    async function take_screenshot_of_website(source, pathToSave) {
-        const browser = await puppeteer.launch();
-        const page    = await browser.newPage();
+    async function take_screenshot_of_website(source, pathToSave, browserExt, pageExt) {
+        
+        let browser = browserExt;
+        let page = pageExt;
+
+        console.log(browser);
+        console.log(page);
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch({headless: false});
+            page    = await browser.newPage();      
+        } 
+
         await page.goto(source);
         let date = new Date().getTime();
         date = date.toString();
         await page.screenshot({path: `./${pathToSave}/${date}.png`});
         const result = {title: `${date}.png`};
+        await page.waitFor(10000);
         return result;
     }
 
-    async function take_screeenshot_of_part_of_website(source, pathToSave, cx0, cy0, x0, y0) {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
+    async function take_screeenshot_of_part_of_website(source, pathToSave, cx0, cy0, x0, y0, browserExt, pageExt) {
+
+        let browser = browserExt;
+        let page    = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch({headless: false});
+            page    = await browser.newPage();      
+        } 
+
         await page.goto(source);
+        await page.evaluate(() => {
+            console.log()
+        });
+        page.cookies()
+        .catch(err =>  {console.log(err)})
+        .then(data => {console.log('cookies'); console.log(data)})
         let date = new Date();
         date = date.toString();
         cx0 = Number(cx0);
@@ -30,9 +55,16 @@ const exports_module = (function() {
         return await page.screenshot({path: `./${pathToSave}/${date}.png`, clip: {x: cx0, y:cy0, width:x0-cx0, height:y0-cx0}});
     }
 
-    async function take_screenshot_of_specific_element_of_website(source, elementId) {
-        const browser = await puppeteer.launch();
-        const page    = await browser.newPage();
+    async function take_screenshot_of_specific_element_of_website(source, elementId, browserExt, pageExt) {
+
+        let browser = browserExt;
+        let page = pageExt;
+
+        if ( !browser || !page ) {
+            browser = await puppeteer.launch({headless: false});
+            page    = await browser.newPage();      
+        } 
+
         await page.goto(source);
         let date = new Date();
         date = date.toString();
@@ -84,9 +116,10 @@ const exports_module = (function() {
           });    
     } 
 
-    async function compare_screenshot_of_two_domains(sourceDomain, targetDomain, pathToSave) {
-        let sourceSS = await take_screenshot_of_website(sourceDomain, pathToSave);
-        let targetSS = await take_screenshot_of_website(targetDomain, pathToSave);
+    async function compare_screenshot_of_two_domains(sourceDomain, targetDomain, pathToSave, browserExt, pageExt) {
+        
+        let sourceSS = await take_screenshot_of_website(sourceDomain, pathToSave, browserExt, pageExt);
+        let targetSS = await take_screenshot_of_website(targetDomain, pathToSave, browserExt, pageExt);
         sourceSS = `./${pathToSave}/${sourceSS.title}`;
         targetSS = `./${pathToSave}/${targetSS.title}`;
         

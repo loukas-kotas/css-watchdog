@@ -7,6 +7,188 @@ const loginModule = require('./login.module');
 const errorHandler = require('./error-handler.controller');
 const puppeteerModule = require('./puppeteer.module');
 
+class Facade {
+    constructor(beforeAllFun, beforeEachFun) {
+        this.beforeAllFun = beforeAllFun;
+        this.beforeEachFun = beforeEachFun;
+        // this.beforeAll();
+    }
+
+    beforeAll() {
+        console.log('i am here');
+        return this.beforeAllFun();
+    }
+
+    beforeEach(browser) {
+        return this.beforeEachFun(browser);
+    }
+
+
+    // puppet
+    puppet_newpage() {
+        try {
+            const result = puppetModule().new_page();
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    puppet_go_to(page, source) {
+        try {
+            const result = puppetModule().go_to(page, source);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    puppet_close_browser() {
+        try { 
+            const result = puppetModule().close_browser();
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // fonts
+    get_fonts(source) {
+        try {
+            const result = fontsModule().get_fonts(source);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    get_attribute_of_element(source, elementId, attribute) {
+        try {
+            const result = fontsModule().get_attribute_of_element(source, elementId, attribute);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // fields
+    get_attributes(source, attributes) {
+        try {
+            const result = fieldsModule().get_attributes(source, attributes);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    get_tags(source, fields, tags) {
+        try {
+            const result = fieldsModule().get_tags(source, fields, tags);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    get_class(source, fields, className) {
+        try {
+            const result = fieldsModule().get_class(source, fields, className);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // screenshots
+    screenshot_whole_page(source, pathToSave) {
+        try {
+            const result = screenshotModule().domain(source, pathToSave);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0) {
+        try {
+            const result = screenshotModule().part(source, pathToSave, cx0, cy0, x0, y0);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    screenshot_element(source, elementId) {
+        try {
+            const result = screenshotModule().element(source, elementId);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    compare_images(sourceImagePath, targetImagePath) {
+        try {
+            const result = screenshotModule().compare(sourceImagePath, targetImagePath);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    compare_domains(sourceImagePath, targetImagePath, pathToSave) {
+        try {
+            const result = screenshotModule().compareDomains(sourceImagePath, targetImagePath, pathToSave);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // common
+    get_element_position(page, elementID) {
+        try {
+            const result = commonModule().get_element_position(page, elementID);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // login
+    login(source, username, password, usernameId, passwordId, buttonLoginId) {
+
+        try {
+            const result = loginModule().login(source, username, password, usernameId, passwordId, buttonLoginId);
+            return result;
+        } catch (err) {
+            const error = errorHandler().handleError(err);
+            return error;
+        }
+    }
+
+    // puppeteer
+    puppeteer() {
+        return puppeteerModule().puppeteer_;
+    }
+
+
+}
+
 const export_module = (function() {
 
 
@@ -195,6 +377,6 @@ const export_module = (function() {
 
 });
 
-module.exports = export_module;
+module.exports = Facade;
 
 
