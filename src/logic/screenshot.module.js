@@ -5,7 +5,7 @@ const pixelmatch   = require('pixelmatch');
 const jsonfile = require('jsonfile')
 process.nextTick(()=>facade=require("./facade")); //Circular reference!
 
-const exports_module = (function() {
+const export_module = (function() {
 
     async function take_screenshot_of_website(source, pathToSave, browserExt, pageExt) {
         
@@ -134,4 +134,4 @@ const exports_module = (function() {
 
 });
 
-module.exports = exports_module;
+module.exports = export_module;
