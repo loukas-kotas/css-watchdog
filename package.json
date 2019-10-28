@@ -2,6 +2,9 @@
   "name": "css-watchdog",
   "version": "1.0.0",
   "description": "The absolute CSS testing tool",
+  "bin": {
+    "watchdog": "./src/cli/index.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "karmatic",
