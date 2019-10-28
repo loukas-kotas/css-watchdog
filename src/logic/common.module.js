@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 let export_module = (function() {
 
-    async function get_element_position(page, elementID, browserExt, pageExt) {
+    async function get_element_position(source, elementID, browserExt, pageExt) {
 
         let browser = browserExt;
         let page    = pageExt;
@@ -11,6 +11,8 @@ let export_module = (function() {
             browser = await puppeteer.launch();
             page = await browser.newPage();
         }
+
+        await page.goto(source);
 
         return await page.evaluate((elementID) => {
             const el = document.getElementById(elementID);
