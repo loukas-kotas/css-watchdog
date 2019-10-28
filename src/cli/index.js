@@ -6,7 +6,8 @@ const {
     get_attribute_of_element,
     screenshot_whole_page,
     screenshot_part_page,
-    configuration_execution
+    configuration_execution,
+    get_attributes
 } = require('./commands');
 const fs = require("fs");
 
@@ -21,6 +22,9 @@ program.on('--help', function(){
     console.log('')
     console.log('Examples:');
     console.log('  $ attribute https://loukaskotas.com experience font-size');
+    console.log('  $ screenshot-page https://loukaskotas.com');
+    console.log('  $ screenshot-part-page https://loukaskotas.com 0 0 300 300');
+    console.log('  $ attributes https://loukaskotas.com ["font-size"]');
 });
     
 
@@ -30,8 +34,8 @@ program
 
 program
     .command("attribute <source> <elementId> <attribute>")
-    .alias('n')
-    .description('see the current weather in the specified city')
+    .alias('attr')
+    .description('get specific attribute of a specific element')
     .action((source, elementId, attribute) => get_attribute_of_element( source, elementId, attribute));
 
 program
@@ -47,17 +51,17 @@ program
     .action((source, pathToSave, cx0, cy0, x0, y0) => screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0));
 
 program
-    .command("configuration <configuration-path>")
-    .alias('con')
-    .description('Execute tests found in configuration file')
-    .action((configPath) => configuration_execution(configPath));
+    .command("attributes <source> <attributes>")
+    .alias('attrs')
+    .description('Get specific attributes of every element')
+    .action((source, attributes) => get_attributes(source, attributes));
 
-
-program
-    .command("config")
-    .alias('n')
-    .description('see the current weather in the specified city')
-    .action(() => run_through_configuration());
+// TODO: comment-in after configuration is complete. 
+// program
+//     .command("configuration <configuration-path>")
+//     .alias('con')
+//     .description('Execute tests found in configuration file')
+//     .action((configPath) => configuration_execution(configPath));
 
 
 program.parse(process.argv)
