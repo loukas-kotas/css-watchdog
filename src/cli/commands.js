@@ -1,10 +1,10 @@
-const facade = require('../logic/facade');
+const Facade = require('../logic/facade');
 const configuration = require('../configuration/index');
 const errorHandler = require('../logic/error-handler.controller');
 
 const get_attribute_of_element = async (source, elementId, attribute) => {
 
-    facade().get_attribute_of_element(source, elementId, attribute)
+    new Facade().get_attribute_of_element(source, elementId, attribute)
     .catch((err) =>{
         errorHandler().handleError(err)
     })
@@ -19,7 +19,7 @@ const get_attribute_of_element = async (source, elementId, attribute) => {
 
 const screenshot_whole_page = async (source, pathToSave) => {
     console.info('Screenshot whole page');
-    facade().screenshot_whole_page(source, pathToSave)
+    new Facade().screenshot_whole_page(source, pathToSave)
     .catch((err) => {
         console.info(`Error Occured while saving ${source}`);
         console.error(err.message);
@@ -35,7 +35,7 @@ const screenshot_whole_page = async (source, pathToSave) => {
 }
 
 const screenshot_part_page = async (source, pathToSave, cx0, cy0, x0, y0) => {
-    facade().screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0)
+    new Facade().screenshot_part_page(source, pathToSave, cx0, cy0, x0, y0)
     .catch((err) => {
         const error = errorHandler().handleError(err)
         console.info(error);
@@ -45,6 +45,22 @@ const screenshot_part_page = async (source, pathToSave, cx0, cy0, x0, y0) => {
         console.info(`Screenshot of ${source} saved successfully!`);
         console.info('\n');
         process.exit(0);
+    });
+}
+
+const get_attributes = async  (source, attributes) => {
+    new Facade().get_attributes(source, attributes)
+    .catch((err) => {
+        const error = errorHandler().handleError(err);
+        console.error(error);
+    })
+    .then((data) => {
+        console.info('\n');
+        console.info(`Get attributes ${attributes} of ${source}:`);
+        console.info('\n');
+        console.log(data);
+        process.exit(0);
+
     });
 }
 
@@ -71,5 +87,6 @@ module.exports = {
     get_attribute_of_element:get_attribute_of_element,
     screenshot_whole_page: screenshot_whole_page,
     screenshot_part_page: screenshot_part_page,
-    configuration_execution: configuration_execution
+    configuration_execution: configuration_execution,
+    get_attributes: get_attributes
 }
