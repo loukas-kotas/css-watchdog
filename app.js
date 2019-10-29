@@ -8,6 +8,5 @@ app.use("/static", express.static(__dirname + "/src"));
 app.use(bodyParser.json())
 app.use(require('./src/routes'));
 
-const port = 3000;
 const port = process.env.PORT || 3000;
 app.listen(port, () => {    (`I am running at ${port}!`)});
