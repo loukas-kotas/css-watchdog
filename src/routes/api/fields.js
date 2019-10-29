@@ -39,7 +39,7 @@ router.get('/tags', async (req, res, next) => {
 router.get('/facade', async (req, res, next) => {
     const source = req.body.source;
     const fields = req.body.fields;
-    const promise = facade().get_attributes(source, fields);
+    const promise = new Facade().get_attributes(source, fields);
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);
@@ -56,7 +56,7 @@ router.get('/tags/facade', async (req, res, next) => {
     const source = req.body.source;
     const fields = req.body.fields;
     const tags = req.body.tags;
-    const promise = facade().get_tags(source, fields, tags);
+    const promise = new Facade().get_tags(source, fields, tags);
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);

@@ -1,7 +1,5 @@
 const puppet = require('./../../logic/puppet');
-// const facade = require('./../../logic/facade');
-// const facade = require('../../logic/facade');
-const facade = require('../../logic/facade');
+const Facade = require('../../logic/facade');
 
 const router = require('express').Router();
 const fs     = require('fs');
@@ -55,7 +53,7 @@ router.post('/facade', async (req, res, next) => {
     const passwordId = req.body.passwordId;
     const buttonLoginId = req.body.buttonLoginId;
     try {
-        const promise = facade().login(source, username, password, usernameId, passwordId, buttonLoginId);
+        const promise = new Facade().login(source, username, password, usernameId, passwordId, buttonLoginId);
         promise
         .catch((err) => {
             const error = new Error(err);

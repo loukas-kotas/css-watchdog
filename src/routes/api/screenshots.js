@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const puppet = require('../../logic/puppet');
-const facade = require('../../logic/facade');
+const Facade = require('../../logic/facade');
 const errorHandler = require('../../logic/error-handler.controller');
 
 
@@ -49,7 +49,7 @@ router.get('/compare', (req, res, next) => {
 
 router.get('/domain/facade', (req, res, next) => {
     const source = req.body.source;
-    const promise = facade().screenshot_whole_page(source);
+    const promise = new Facade().screenshot_whole_page(source);
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);
@@ -64,8 +64,7 @@ router.get('/domain/facade', (req, res, next) => {
 router.get('/element/facade', (req, res, next) => {
     const source = req.body.source;
     const elementId = req.body.elementId;
-    const promise = facade().screenshot_element(source, elementId);
-    // const promise = facade().get_fonts(source);
+    const promise = new Facade().screenshot_element(source, elementId);
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);
@@ -77,7 +76,7 @@ router.get('/element/facade', (req, res, next) => {
 })
 
 router.get('/compare/facade', (req, res, next) => {
-    const promise = facade().compare_images('./assets/image_1.png', './assets/Sat Oct 05 2019 23:42:10 GMT+0300 (EEST).png');
+    const promise = new Facade().compare_images('./assets/image_1.png', './assets/Sat Oct 05 2019 23:42:10 GMT+0300 (EEST).png');
     promise
     .catch((err) => {
         const error = errorHandler().handleError(err);
