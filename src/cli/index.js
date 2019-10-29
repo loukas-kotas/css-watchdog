@@ -6,7 +6,6 @@ const {
     get_attribute_of_element,
     screenshot_whole_page,
     screenshot_part_page,
-    configuration_execution,
     get_attributes
 } = require('./commands');
 const fs = require("fs");
@@ -55,13 +54,6 @@ program
     .alias('attrs')
     .description('Get specific attributes of every element')
     .action((source, attributes) => get_attributes(source, attributes));
-
-// TODO: comment-in after configuration is complete. 
-// program
-//     .command("configuration <configuration-path>")
-//     .alias('con')
-//     .description('Execute tests found in configuration file')
-//     .action((configPath) => configuration_execution(configPath));
 
 
 program.parse(process.argv)
