@@ -14,6 +14,21 @@
     "type": "git",
     "url": "git+https://github.com/loukas-kotas/css-watchdog.git"
   },
+  "keywords": [
+    "css",
+    "watchdog",
+    "css-watchdog",
+    "style",
+    "styling",
+    "regression",
+    "visual regression",
+    "test",
+    "testing",
+    "screenshot",
+    "lib",
+    "ci",
+    "continuous integration"
+  ],
   "author": "“Loukas <“loukas.kotas@gmail.com”> (“https://www.github.com/loukas-kotas/”)",
   "license": "ISC",
   "bugs": {
