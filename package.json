@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "karmatic",
+    "test": "echo \"Error: no test specified\"",
     "start": "node app.js"
 
   },
