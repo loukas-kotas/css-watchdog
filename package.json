@@ -1,6 +1,6 @@
 {
   "name": "css-watchdog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The absolute CSS testing tool",
   "bin": {
     "watchdog": "./src/cli/index.js"
