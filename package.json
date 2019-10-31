@@ -1,6 +1,6 @@
 {
   "name": "css-watchdog",
-  "version": "0.0.3",
+  "version": "0.0.3-next.1572549676511",
   "description": "The absolute CSS testing tool",
   "bin": {
     "watchdog": "./src/cli/index.js"
@@ -43,6 +43,7 @@
     "commander": "^3.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonfile": "^5.0.0",
     "karmatic": "^1.4.0",
     "pixelmatch": "^5.1.0",
     "pngjs": "^3.4.0",
