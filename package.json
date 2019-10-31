@@ -8,8 +8,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "node app.js",
-    "postinstall": "npm install"
+    "start": "node app.js"
 
   },
   "repository": {
