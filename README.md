@@ -5,6 +5,7 @@ The absolute CSS testing tool
 
 [![npm](https://img.shields.io/npm/v/css-watchdog.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/css-watchdog)
 [![npm](https://img.shields.io/npm/dm/css-watchdog.svg)](https://www.npmjs.com/package/css-watchdog)
+[![Build Status](https://travis-ci.org/loukas-kotas/css-watchdog.svg?branch=master)](https://travis-ci.org/loukas-kotas/css-watchdog)
 
 
 ## Documentation
