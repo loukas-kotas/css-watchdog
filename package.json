@@ -43,6 +43,7 @@
     "commander": "^3.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jasmine": "^3.5.0",
     "jsonfile": "^5.0.0",
     "karmatic": "^1.4.0",
     "pixelmatch": "^5.1.0",
