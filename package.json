@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "karma start karma.conf.js",
     "start": "node app.js"
   },
   "repository": {
@@ -53,5 +53,16 @@
     "webpack-cli": "^3.3.9",
     "webpack-node-externals": "^1.7.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "istanbul": "^0.4.5",
+    "jasmine-core": "^2.99.1",
+    "karma": "^4.4.1",
+    "karma-browserify": "^6.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^2.0.1",
+    "karma-jasmine": "^1.1.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "watchify": "^3.11.1"
+  }
 }
